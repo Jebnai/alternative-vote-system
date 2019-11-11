@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+D:/uni/year 2/IN2029 C++/c++ stuff/alternative-vote-system/src/main.cpp
+iostream
+-
+votes/Vote.h
+D:/uni/year 2/IN2029 C++/c++ stuff/alternative-vote-system/src/votes/Vote.h
+vector
+-
+
+D:/uni/year 2/IN2029 C++/c++ stuff/alternative-vote-system/src/votes/Vote.cpp
+vector
+-
+iostream
+-
+Vote.h
+D:/uni/year 2/IN2029 C++/c++ stuff/alternative-vote-system/src/votes/Vote.h
+
+D:/uni/year 2/IN2029 C++/c++ stuff/alternative-vote-system/src/votes/Vote.h
+iostream
+-
+vector
+-
+

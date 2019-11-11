@@ -1,0 +1,3 @@
+D:/uni/year 2/IN2029 C++/c++ stuff/alternative-vote-system/cmake-build-debug/CMakeFiles/alternative_vote_system.dir
+D:/uni/year 2/IN2029 C++/c++ stuff/alternative-vote-system/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/uni/year 2/IN2029 C++/c++ stuff/alternative-vote-system/cmake-build-debug/CMakeFiles/rebuild_cache.dir
