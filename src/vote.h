@@ -8,7 +8,7 @@ private:
     typedef unsigned int candidate;
     std::vector<candidate> preference;
 public:
-    vote(const std::vector<candidate> &prefs);
+    explicit vote(std::vector<candidate> prefs);
 
     bool spent() const;
 
@@ -16,7 +16,7 @@ public:
 
     void discard(candidate c);
 
-    std::vector<unsigned int> getVote() const;
+    std::vector<candidate> getVote() const;
 };
 
 #endif //ALTERNATIVE_VOTE_SYSTEM_VOTE_H

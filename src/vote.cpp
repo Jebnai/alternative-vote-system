@@ -1,14 +1,10 @@
+#include <utility>
 #include <vector>
 #include <iostream>
-#include "Vote.h"
+#include "vote.h"
 
 //sets up a vote with a sequence of candidates in preference order.
-vote::vote(const std::vector<candidate> &prefs): preference(prefs) {
-    unsigned int x;
-    while(std::cin >> x){
-        preference.push_back(x);
-    }
-}
+vote::vote(std::vector<candidate> prefs): preference(std::move(prefs)) {}
 
 //returns true if the vote has no preferences left.
 bool vote::spent() const{
@@ -34,6 +30,6 @@ void vote::discard(vote::candidate c){
     }
 }
 
-std::vector<unsigned int> vote::getVote() const{
+std::vector<vote::candidate> vote::getVote() const{
     return preference;
 }

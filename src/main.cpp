@@ -3,12 +3,30 @@
 #include "election.h"
 #include <vector>
 
-int main() {
-    /*election election;
-    vote vote1( std::vector<unsigned int> yes);
-    election.add_vote(vote1);
-    vote vote2(std::vector<unsigned int> yes);
-    vote vote3(std::vector<unsigned int> yes);*/
+void printVote(vote &v){
+    for(int i = 0; i < v.getVote().size(); i++){
+        std::cout << v.getVote()[i];
+    }
+    std::cout << "" << std::endl;
+}
 
+void printVotes(election &e){
+    for(int i = 0; i < e.getVotes().size(); i++){
+        for(int j = 0; j < e.getVotes()[i].size(); j++){
+            std::cout << e.getVotes()[i][j];
+        }
+        std::cout << "" << std::endl;
+    }
+}
+
+int main() {
+    election election;
+    election.add_vote(vote(std::vector<unsigned int> {1, 2, 3, 4}));
+    election.add_vote(vote(std::vector<unsigned int> {1, 3, 2, 4}));
+    printVotes(election);
+    election.eliminate(1);
+    std::cout << "Number 1 eliminated" << std::endl;
+    printVotes(election);
     return 0;
 }
+

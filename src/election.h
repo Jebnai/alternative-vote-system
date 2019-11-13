@@ -7,7 +7,8 @@
 
 class election{
 private:
-    std::vector<std::vector<unsigned int>> votes;
+    typedef unsigned int candidate;
+    std::vector<std::vector<candidate>> votes;
 public:
     election();
 
@@ -15,9 +16,11 @@ public:
 
     int vote_count() const;
 
-    void eliminate(unsigned int c);
+    void eliminate(candidate c);
 
-    std::vector<std::pair<unsigned int, int>> ranked_candidates() const;
+    std::vector<std::pair<candidate, int>> ranked_candidates() const;
+
+    std::vector<std::vector<candidate>> getVotes() const;
 };
 
 election read_votes(std::istream &in);
