@@ -33,7 +33,35 @@ void election::eliminate(election::candidate c){
 
 //returns a collection of candidates left paired with the number of firsts each vote has in decreasing order.
 std::vector<std::pair<election::candidate, int>> election::ranked_candidates() const {
-
+    std::vector<std::pair<election::candidate , int>> votePair;
+    std::vector<election::candidate> firstCandidate;
+    std::vector<int> preferenceNumber;
+    for(int i = 0; i < votes.size(); i++){
+        int j = 0;
+        if(firstCandidate.empty()){
+            firstCandidate.push_back(votes[i][0]);
+            preferenceNumber.push_back(1);
+        }else{
+            for(j = 0; j < votes.size(); j++){
+                if(firstCandidate[j] == votes[i][0]){
+                    preferenceNumber[j] += 1;
+                    break;
+                }else if(j==firstCandidate.size()-1){
+                    firstCandidate.push_back(votes[i][0]);
+                    preferenceNumber.push_back(1);
+                    break;
+                }
+            }
+        }
+    }
+    int n = firstCandidate.size();
+    for(int i = 0; i < n; i++){
+        votePair.emplace_back(firstCandidate[i], preferenceNumber[i]);
+    }
+    for(int i = 0; i < n; i++){
+        std::cout << votePair[i].first << " " << votePair[i].second << std::endl;
+    }
+    return votePair;
 }
 
 election read_votes(std::istream &in){

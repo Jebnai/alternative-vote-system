@@ -2,6 +2,7 @@
 #include "vote.h"
 #include "election.h"
 #include <vector>
+#include <sstream>
 
 void printVote(vote &v){
     for(int i = 0; i < v.getVote().size(); i++){
@@ -23,10 +24,14 @@ int main() {
     election election;
     election.add_vote(vote(std::vector<unsigned int> {1, 2, 3, 4}));
     election.add_vote(vote(std::vector<unsigned int> {1, 3, 2, 4}));
+    election.add_vote(vote(std::vector<unsigned int> {4, 1, 2, 3, 5}));
+    election.add_vote(vote(std::vector<unsigned int> {5, 4, 1, 2, 3}));
+    election.add_vote(vote(std::vector<unsigned int> {5, 1, 4, 2, 3}));
+    election.add_vote(vote(std::vector<unsigned int> {2, 3, 4, 1, 5}));
+    election.add_vote(vote(std::vector<unsigned int> {5, 3, 4, 1, 2}));
     printVotes(election);
-    election.eliminate(1);
-    std::cout << "Number 1 eliminated" << std::endl;
-    printVotes(election);
+    std::cout << "return how many first preferences candidates have" << std::endl;
+    election.ranked_candidates();
     return 0;
 }
 
