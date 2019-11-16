@@ -1,7 +1,9 @@
 #include <vector>
 #include <iostream>
+#include <algorithm>
 #include "vote.h"
 #include "election.h"
+#include <sstream>
 
 election::election()= default;
 
@@ -58,6 +60,15 @@ std::vector<std::pair<election::candidate, int>> election::ranked_candidates() c
     for(int i = 0; i < n; i++){
         votePair.emplace_back(firstCandidate[i], preferenceNumber[i]);
     }
+    std::sort(votePair.begin(), votePair.end(),
+              [](const pair& x, const pair& y) {
+                  // compare second value
+                  if (x.second != y.second)
+                      return x.second > y.second;
+
+                  // compare first only if second value is equal
+                  return x.first > y.first;
+              });
     for(int i = 0; i < n; i++){
         std::cout << votePair[i].first << " " << votePair[i].second << std::endl;
     }
@@ -65,7 +76,19 @@ std::vector<std::pair<election::candidate, int>> election::ranked_candidates() c
 }
 
 election read_votes(std::istream &in){
-
+    std::string line;
+    election e;
+    while(getline(in, line)){
+        std::stringstream s(line);
+        int num;
+        std::vector<unsigned int> cand;
+        while(s >> num){
+            cand.push_back(num);
+        }
+        vote v(cand);
+        e.add_vote(v);
+    }
+    return e;
 }
 
 std::vector<std::vector<election::candidate>>election::getVotes() const {

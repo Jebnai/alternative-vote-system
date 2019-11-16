@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <string>
 #include "vote.h"
 #include "election.h"
 #include <vector>
@@ -22,16 +24,16 @@ void printVotes(election &e){
 
 int main() {
     election election;
-    election.add_vote(vote(std::vector<unsigned int> {1, 2, 3, 4}));
-    election.add_vote(vote(std::vector<unsigned int> {1, 3, 2, 4}));
-    election.add_vote(vote(std::vector<unsigned int> {4, 1, 2, 3, 5}));
-    election.add_vote(vote(std::vector<unsigned int> {5, 4, 1, 2, 3}));
-    election.add_vote(vote(std::vector<unsigned int> {5, 1, 4, 2, 3}));
-    election.add_vote(vote(std::vector<unsigned int> {2, 3, 4, 1, 5}));
-    election.add_vote(vote(std::vector<unsigned int> {5, 3, 4, 1, 2}));
-    printVotes(election);
-    std::cout << "return how many first preferences candidates have" << std::endl;
-    election.ranked_candidates();
+    int counter = 1;
+    std::fstream in;
+    in.open("votes.txt");
+    if(in.fail()){
+        std::cerr << "sad" << std::endl;
+        exit(1);
+    }else{
+        election = read_votes(in);
+    }
+    in.close();
     return 0;
 }
 

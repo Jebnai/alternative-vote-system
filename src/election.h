@@ -4,11 +4,15 @@
 #include <vector>
 #include <iostream>
 #include "vote.h"
+#include <bits/stdc++.h>
+#include <sstream>
 
 class election{
 private:
     typedef unsigned int candidate;
+    typedef std::pair<candidate, int> pair;
     std::vector<std::vector<candidate>> votes;
+    static std::stringstream s;
 public:
     election();
 
@@ -24,5 +28,7 @@ public:
 };
 
 election read_votes(std::istream &in);
+
+
 
 #endif //ALTERNATIVE_VOTE_SYSTEM_ELECTION_H
