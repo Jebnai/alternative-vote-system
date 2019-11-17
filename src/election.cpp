@@ -45,13 +45,15 @@ std::vector<std::pair<election::candidate, int>> election::ranked_candidates() c
             preferenceNumber.push_back(1);
         }else{
             for(j = 0; j < votes.size(); j++){
-                if(firstCandidate[j] == votes[i][0]){
-                    preferenceNumber[j] += 1;
-                    break;
-                }else if(j==firstCandidate.size()-1){
-                    firstCandidate.push_back(votes[i][0]);
-                    preferenceNumber.push_back(1);
-                    break;
+                if(!votes[i].empty()){
+                    if(firstCandidate[j] == votes[i][0]){
+                        preferenceNumber[j] += 1;
+                        break;
+                    }else if(j==firstCandidate.size()-1){
+                        firstCandidate.push_back(votes[i][0]);
+                        preferenceNumber.push_back(1);
+                        break;
+                    }
                 }
             }
         }
@@ -69,9 +71,6 @@ std::vector<std::pair<election::candidate, int>> election::ranked_candidates() c
                   // compare first only if second value is equal
                   return x.first > y.first;
               });
-    for(int i = 0; i < n; i++){
-        std::cout << votePair[i].first << " " << votePair[i].second << std::endl;
-    }
     return votePair;
 }
 
