@@ -9,7 +9,7 @@ election::election()= default;
 
 //adds a vote to the collection.
 void election::add_vote(const vote &v) {
-    votes.push_back(v.getVote());
+    votes.push_back(v);
 }
 
 //returns the number of votes currently left.
@@ -19,16 +19,13 @@ int election::vote_count() const {
 
 //removes any occurrence of the named candidate from each vote.
 void election::eliminate(election::candidate c){
-    for(auto & i : votes){
-        int j = 0;
-        while(j < i.size()){
-            std::vector<election::candidate> vote = i;
-            if(i[j] == c){
-                vote.erase(vote.begin() + j);
-                i = vote;
-            }else{
-                ++j;
-            }
+    int i = 0;
+    while (i < votes.size()) {
+        votes[i].discard(c);
+        if (votes[i].spent()) {
+            votes.erase(votes.cbegin() + i);
+        }else {
+            i++;
         }
     }
 }
@@ -41,16 +38,16 @@ std::vector<std::pair<election::candidate, int>> election::ranked_candidates() c
     for(int i = 0; i < votes.size(); i++){
         int j = 0;
         if(firstCandidate.empty()){
-            firstCandidate.push_back(votes[i][0]);
+            firstCandidate.push_back(votes[i].first_preference());
             preferenceNumber.push_back(1);
         }else{
             for(j = 0; j < votes.size(); j++){
-                if(!votes[i].empty()){
-                    if(firstCandidate[j] == votes[i][0]){
+                if(!votes[i].spent()){
+                    if(firstCandidate[j] == votes[i].first_preference()){
                         preferenceNumber[j] += 1;
                         break;
                     }else if(j==firstCandidate.size()-1){
-                        firstCandidate.push_back(votes[i][0]);
+                        firstCandidate.push_back(votes[i].first_preference());
                         preferenceNumber.push_back(1);
                         break;
                     }
@@ -62,6 +59,7 @@ std::vector<std::pair<election::candidate, int>> election::ranked_candidates() c
     for(int i = 0; i < n; i++){
         votePair.emplace_back(firstCandidate[i], preferenceNumber[i]);
     }
+    //sorting the pair
     std::sort(votePair.begin(), votePair.end(),
               [](const pair& x, const pair& y) {
                   // compare second value
@@ -74,6 +72,7 @@ std::vector<std::pair<election::candidate, int>> election::ranked_candidates() c
     return votePair;
 }
 
+//reads votes from a text file
 election read_votes(std::istream &in){
     std::string line;
     election e;
@@ -90,6 +89,4 @@ election read_votes(std::istream &in){
     return e;
 }
 
-std::vector<std::vector<election::candidate>>election::getVotes() const {
-    return votes;
-}
+
